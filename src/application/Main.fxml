@@ -66,7 +66,7 @@
             <Font name="Arial Bold" size="18.0" />
          </font>
       </Label>
-      <JFXTextArea fx:id="ger_view_log" disable="true" editable="false" layoutX="13.0" layoutY="289.0" prefHeight="102.0" prefWidth="477.0" style="-fx-background-color: #CFD8DC;" />
+      <JFXTextArea fx:id="ger_view_log" disable="false" editable="false" layoutX="13.0" layoutY="289.0" prefHeight="102.0" prefWidth="477.0" style="-fx-background-color: #CFD8DC;" />
       <JFXButton fx:id="ger_view_gerar_codigo" layoutX="567.0" layoutY="305.0" prefHeight="75.0" prefWidth="191.0" ripplerFill="WHITE" style="-fx-border-color: #28368f78; -fx-background-color: #3F51B5;" text="Gerar Código" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="18.0" />
