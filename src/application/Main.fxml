@@ -1,7 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-	
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
-	<!-- TODO Add Nodes -->
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+	<children>
+      <JFXToolbar layoutX="6.0" layoutY="6.0" prefHeight="65.0" prefWidth="800.0" style="-fx-background-color: #3F51B5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="23.0" layoutY="22.0" text="Gerador de CRUD" textFill="#e4e4e4">
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </left>
+      </JFXToolbar>
+      <JFXTextField fx:id="ger_url" focusColor="WHITE" layoutX="212.0" layoutY="13.0" prefHeight="35.0" prefWidth="184.0" promptText="URL" style="-fx-background-color: #5C6BC0;" styleClass="field" text="localhost" unFocusColor="#28368f79" AnchorPane.topAnchor="13.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></JFXTextField>
+      <JFXTextField fx:id="ger_porta" focusColor="WHITE" layoutX="407.0" layoutY="13.0" prefHeight="35.0" prefWidth="77.0" promptText="Porta" style="-fx-background-color: #5C6BC0;" styleClass="field" text="3306" unFocusColor="#28368f78" />
+      <JFXTextField fx:id="ger_usuario" focusColor="WHITE" layoutX="492.0" layoutY="13.0" prefHeight="35.0" prefWidth="77.0" promptText="Login" style="-fx-background-color: #5C6BC0;" styleClass="field" text="root" unFocusColor="#28368f79" />
+      <JFXPasswordField fx:id="ger_senha" focusColor="WHITE" layoutX="576.0" layoutY="13.0" prefHeight="35.0" prefWidth="100.0" promptText="Senha" style="-fx-background-color: #5C6BC0;" styleClass="field" unFocusColor="#28368f78" />
+      <JFXButton fx:id="ger_btn_conectar" layoutX="690.0" layoutY="13.0" prefHeight="35.0" prefWidth="90.0" ripplerFill="WHITE" style="-fx-border-color: #28368f78;" text="Conectar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></JFXButton>
+      <JFXListView fx:id="ger_view_db" layoutX="14.0" layoutY="108.0" prefHeight="170.0" prefWidth="191.0" />
+      <Label layoutX="14.0" layoutY="84.0" text="Banco de Dados" textFill="#616161">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXListView fx:id="ger_view_table" layoutX="259.0" layoutY="108.0" prefHeight="170.0" prefWidth="230.0" />
+      <Label layoutX="217.0" layoutY="169.0" text="&gt;&gt;" textFill="#616161">
+         <font>
+            <Font name="Arial Black" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="256.0" layoutY="85.0" text="Tabelas" textFill="#616161">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXListView fx:id="ger_view_colunas" layoutX="545.0" layoutY="108.0" prefHeight="170.0" prefWidth="230.0" />
+      <Label layoutX="501.0" layoutY="169.0" prefWidth="48.0" text="&gt;&gt;" textFill="#616161">
+         <font>
+            <Font name="Arial Black" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="546.0" layoutY="84.0" text="Colunas" textFill="#616161">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="ger_view_log" disable="true" editable="false" layoutX="13.0" layoutY="289.0" prefHeight="102.0" prefWidth="477.0" style="-fx-background-color: #CFD8DC;" />
+      <JFXButton fx:id="ger_view_gerar_codigo" layoutX="567.0" layoutY="305.0" prefHeight="75.0" prefWidth="191.0" ripplerFill="WHITE" style="-fx-border-color: #28368f78; -fx-background-color: #3F51B5;" text="Gerar Código" textFill="WHITE">
+         <font>
+            <Font name="Arial Black" size="18.0" />
+         </font></JFXButton>
+   </children>
 </AnchorPane>
