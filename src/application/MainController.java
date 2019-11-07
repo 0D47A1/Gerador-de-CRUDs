@@ -16,10 +16,15 @@ import java.sql.SQLException;
 
 import com.sun.org.apache.xpath.internal.compiler.Compiler;
 
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import models.ModelColuna;
+import models.ModelDb;
+import models.ModelTabela;
 
 public class MainController extends Compiler implements Initializable{
    
@@ -113,7 +118,8 @@ public class MainController extends Compiler implements Initializable{
 				while (tabelas.next()) {
 					
 					JFXCheckBox check = new JFXCheckBox();
-					check.setSelected(true);
+					check.setSelected(true); 
+					check.setId(tabelas.getString("TABLE_NAME"));
 					
 					Label label = new Label(tabelas.getString("TABLE_NAME"));
 					label.setGraphic(check);
@@ -149,10 +155,58 @@ public class MainController extends Compiler implements Initializable{
 			 
 		});
     	
-    }
-    
-    public void mostraTabelas(String db) {
+    	ger_view_gerar_codigo.setOnAction((action)->{
+    		
+    		try {
+    			ModelDb db_model  = new ModelDb();
+		   		
+        		String db_name = ger_view_db.getSelectionModel().getSelectedItem(); 
+        		ger_view_log.appendText("-> Capturando dados do banco "+db_name+"\n");
+        		db_model.setDbName(db_name);
+    		 
+    			
+    			ObservableList<Label> view_table = ger_view_table.getItems();
+    			
+    			for(int i =0; i < view_table.size(); i++ ) {
+    				
+    				Label label = view_table.get(i);    				
+    				JFXCheckBox check = (JFXCheckBox) label.getGraphic();
+    				
+    				 
+    				 if(check.isSelected()){
+    					 ModelTabela tabela = new ModelTabela();
+    					 tabela.setTableName(label.getText());
+    					
+    					 ResultSet colunas = metadata.getColumns(db_name, null, label.getText(), null);
+    		    			
+    	    				while(colunas.next()) {
+    	    					ModelColuna coluna = new ModelColuna();
+    	    					coluna.setNome(colunas.getString("COLUMN_NAME"));
+    	    					coluna.setTipo(colunas.getString("TYPE_NAME"));
+    	    					tabela.Coluna.add(coluna);
+    	    					
+    	    				}
+    	    			 db_model.Tabelas.add(tabela);
+    				}
+    			}
+    			 
+    			
+    			
+    			 
+    		} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+    		
+    		
+    	 
+			 
+			
+    		
+    	});
     	
     }
+    
+   
     
 }
