@@ -156,9 +156,9 @@ public class MainController extends Compiler implements Initializable{
 		});
     	
     	ger_view_gerar_codigo.setOnAction((action)->{
-    		
+    		ModelDb db_model  = new ModelDb();
     		try {
-    			ModelDb db_model  = new ModelDb();
+    			
 		   		
         		String db_name = ger_view_db.getSelectionModel().getSelectedItem(); 
         		ger_view_log.appendText("-> Capturando dados do banco "+db_name+"\n");
@@ -175,14 +175,14 @@ public class MainController extends Compiler implements Initializable{
     				 
     				 if(check.isSelected()){
     					 ModelTabela tabela = new ModelTabela();
-    					 tabela.setTableName(label.getText());
+    					 tabela.setTableName(firstUpperCase(label.getText()));
     					
     					 ResultSet colunas = metadata.getColumns(db_name, null, label.getText(), null);
     		    			
     	    				while(colunas.next()) {
     	    					ModelColuna coluna = new ModelColuna();
-    	    					coluna.setNome(colunas.getString("COLUMN_NAME"));
-    	    					coluna.setTipo(colunas.getString("TYPE_NAME"));
+    	    					coluna.setNome(firstUpperCase(colunas.getString("COLUMN_NAME")));
+    	    					coluna.setTipo(lapidarTipo(colunas.getString("TYPE_NAME")));
     	    					tabela.Coluna.add(coluna);
     	    					
     	    				}
@@ -199,13 +199,32 @@ public class MainController extends Compiler implements Initializable{
 			}
     		
     		
-    	 
+    		new GerarClasses(db_model);
 			 
 			
     		
     	});
     	
     }
+    
+    public static String lapidarTipo(String a) {
+		switch (a) {
+		case "INT":
+			return "Integer";		
+			
+		case "VARCHAR":
+			return "String";		
+
+		default:
+			return "Null";
+		}
+	}
+	
+
+	
+	public static String firstUpperCase(String a){
+		 return a.substring(0,1).toUpperCase().concat(a.substring(1));
+	}
     
    
     
