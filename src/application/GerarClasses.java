@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import models.ModelColuna;
 import models.ModelDb;
 import models.ModelTabela;
+import sun.swing.MenuItemLayoutHelper.ColumnAlignment;
 
 public class GerarClasses {
 	public GerarClasses(ModelDb data) {
@@ -188,6 +189,48 @@ public class GerarClasses {
 				
 				
 			}
+	    	
+	   	 /* ***********************************
+			 * 
+			 * GERANDO EXEMPLOS PARA CADA TABELA
+			 * 
+			 */
+	    	
+	    	
+	    	for(ModelTabela tabela : data.Tabelas) {
+	    		
+				try {
+					new File("CRUD/"+tabela.getTableName()).mkdirs();
+					FileWriter file_write = new FileWriter("CRUD/"+tabela.getTableName()+"/"+tabela.getTableName()+"Exemplo.java");
+					MainController.Var.ger_view_log.appendText("          -> Gerando o arquivo de exemplo "+tabela.getTableName()+"Exemplo.java\n");
+					file_write.write("public class "+tabela.getTableName()+"Exemplo(){\n\n");
+			        
+			         
+			        file_write.write("			public "+tabela.getTableName()+"Exemplo() {\n\n");
+			        file_write.write("				"+tabela.getTableName()+"DAO "+MainController.firstLowerCase(tabela.getTableName())+"Dao = new "+tabela.getTableName()+"DAO();\n");
+			        file_write.write("			try {\n");
+			        file_write.write("					"+tabela.getTableName()+" "+MainController.firstLowerCase(tabela.getTableName())+" = new "+tabela.getTableName()+"();\n");
+			        for(ModelColuna colula : tabela.Coluna) {
+			        	file_write.write("					"+MainController.firstLowerCase(tabela.getTableName())+".set"+MainController.firstUpperCase(colula.getNome())+"(\"valor\");\n");
+			        }
+			        
+			        file_write.write("\n					"+MainController.firstLowerCase(tabela.getTableName())+"Dao.iserir("+MainController.firstLowerCase(tabela.getTableName())+");\n");
+			        file_write.write("\n					"+MainController.firstLowerCase(tabela.getTableName())+"Dao.alterar("+MainController.firstLowerCase(tabela.getTableName())+");\n");
+			        file_write.write("\n					"+MainController.firstLowerCase(tabela.getTableName())+"Dao.deletar("+MainController.firstLowerCase(tabela.getTableName())+".get"+tabela.Coluna.get(0).getNome()+"());\n");
+			        file_write.write("\n					ArrayList<"+tabela.getTableName()+"> list = "+MainController.firstLowerCase(tabela.getTableName())+"Dao.selecionarTodos();\n");
+			        file_write.write("			} catch (SQLException e) {\n 					e.printStackTrace();\n			}\n");
+			        
+			        file_write.write("        }\n");
+			        file_write.write("}");
+			        file_write.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	    		
+	    		
+	    	}
 		       
 		  
 	

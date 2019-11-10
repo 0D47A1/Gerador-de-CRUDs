@@ -198,13 +198,21 @@ public class MainController extends Compiler implements Initializable{
 				e.printStackTrace();
 			}
     		
-    		new Thread() {
+    		Thread t1 = new Thread() {
 			     
 			    @Override
 			    public void run() {
-			    	new GerarClasses(db_model);			       
+			    	new GerarClasses(db_model);		       
 			    }
-			  }.start(); 
+			  };
+			  
+			  t1.start();
+			try {
+				t1.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		
 			 
 			
