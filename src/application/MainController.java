@@ -198,8 +198,14 @@ public class MainController extends Compiler implements Initializable{
 				e.printStackTrace();
 			}
     		
+    		new Thread() {
+			     
+			    @Override
+			    public void run() {
+			    	new GerarClasses(db_model);			       
+			    }
+			  }.start(); 
     		
-    		new GerarClasses(db_model);
 			 
 			
     		
@@ -209,14 +215,16 @@ public class MainController extends Compiler implements Initializable{
     
     public static String lapidarTipo(String a) {
 		switch (a) {
-		case "INT":
-			return "Integer";		
-			
-		case "VARCHAR":
-			return "String";		
-
-		default:
-			return "Null";
+			case "INT":
+				return "Integer";		
+				
+			case "VARCHAR":
+				return "String";
+			case "Integer":
+				return "Int";
+	
+			default:
+				return "String";
 		}
 	}
 	
@@ -224,6 +232,10 @@ public class MainController extends Compiler implements Initializable{
 	
 	public static String firstUpperCase(String a){
 		 return a.substring(0,1).toUpperCase().concat(a.substring(1));
+	}
+	
+	public static String firstLowerCase(String a){
+		 return a.substring(0,1).toLowerCase().concat(a.substring(1));
 	}
     
    
