@@ -126,6 +126,7 @@ public class MainController extends Compiler implements Initializable{
 					label.setContentDisplay(ContentDisplay.LEFT);
 					 
 					ger_view_table.getItems().add(label);
+					ger_view_gerar_codigo.disableProperty().set(false); // ativando o botão que gera as classes 
 					
 				}
 			} catch (SQLException e) {

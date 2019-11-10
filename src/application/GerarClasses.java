@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,8 +13,9 @@ import models.ModelTabela;
 import sun.swing.MenuItemLayoutHelper.ColumnAlignment;
 
 public class GerarClasses {
+	private String path;
 	public GerarClasses(ModelDb data) {
-		
+		 
 		MainController.Var.ger_view_log.appendText("-> Gerando o CRUD para o banco "+data.getDbName()+"\n");
 		
 		/* ***********************************
@@ -21,15 +23,41 @@ public class GerarClasses {
 		 * GERANDO CLASSES PARA CADA TABELA
 		 * 
 		 */
-		
+		 	File file = new File("CRUD");
+		 	
+	 	    
+	 	   if(file.isDirectory()) {
+	 		  String[]sublist = file.list(); // lista as sub pasta do diretorio CRUD
+	 		 for(String s: sublist){
+	 		     File subdirectory = new File(file.getPath(),s); // pecorre cada subpasta
+	 		     
+	 		     String[]arquivolist	= subdirectory.list(); // pega a lista de arquivos dessa subpasta
+	 		    for(String b: arquivolist){
+	 		    	File listdir = new File(subdirectory.getPath(),b); // pega cada arquivo;
+	 		    	listdir.delete(); // e deleta
+	 		    }
+	 		     //System.out.println(sub2.getAbsolutePath());
+	 		    subdirectory.delete(); // depoi apaga a subpasta de onde estava os arquivos
+	 		 }
+				 
+			}else {
+				file.mkdir();
+				
+			}
+	 	   this.path = file.getAbsolutePath();
 		
 	    	for(ModelTabela tabela : data.Tabelas) {
 				 
 				 
 				 try {
 					 
-					 new File("CRUD/"+tabela.getTableName()).mkdirs();
-				 
+						File file1 = new File("CRUD/"+tabela.getTableName());
+						if(file1.isDirectory()) {
+							file1.delete();
+						}else {
+							file1.mkdir();
+						}
+					 
 					 FileWriter file_write = new FileWriter("CRUD/"+tabela.getTableName()+"/"+tabela.getTableName()+".java");
 					 MainController.Var.ger_view_log.appendText("          -> Gerando o arquivo "+tabela.getTableName()+".java\n");
 					 file_write.write("public class "+tabela.getTableName()+"(){\n\n");
@@ -74,7 +102,9 @@ public class GerarClasses {
 	    	for(ModelTabela tabela : data.Tabelas) {
 				
 				try {
-					new File("CRUD/"+tabela.getTableName()).mkdirs();
+					File file1 = new File("CRUD/"+tabela.getTableName());
+					
+						
 					FileWriter file_write = new FileWriter("CRUD/"+tabela.getTableName()+"/"+tabela.getTableName()+"DAO.java");
 					MainController.Var.ger_view_log.appendText("          -> Gerando o DAO "+tabela.getTableName()+"DAO.java\n");
 			        file_write.write("public class "+tabela.getTableName()+"DAO(){\n\n");
@@ -200,7 +230,12 @@ public class GerarClasses {
 	    	for(ModelTabela tabela : data.Tabelas) {
 	    		
 				try {
-					new File("CRUD/"+tabela.getTableName()).mkdirs();
+					File file1 = new File("CRUD/"+tabela.getTableName());
+					if(file1.isDirectory()) {
+						file1.delete();
+					}else {
+						file1.mkdir();
+					}
 					FileWriter file_write = new FileWriter("CRUD/"+tabela.getTableName()+"/"+tabela.getTableName()+"Exemplo.java");
 					MainController.Var.ger_view_log.appendText("          -> Gerando o arquivo de exemplo "+tabela.getTableName()+"Exemplo.java\n");
 					file_write.write("public class "+tabela.getTableName()+"Exemplo(){\n\n");
@@ -231,6 +266,17 @@ public class GerarClasses {
 	    		
 	    		
 	    	}
+	    	
+	    	 
+	    	MainController.Var.ger_view_log.appendText("-> Arquivos gerados em "+this.path+"\n");
+	    	Desktop desktop = Desktop.getDesktop();
+	    			try {
+						desktop.open(file);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	    	
 		       
 		  
 	
