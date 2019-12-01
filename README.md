@@ -12,4 +12,4 @@
   * JFoenix para o java 8
   * mysql-connector-java-5.1.48
 
-##### OBS: Por se tratar de uma atividade, não tenho interece na continuação ao projeto, ficando para quem tiver a curiosidade da implementação
+##### OBS: Por se tratar de uma atividade, não tenho interece na continuação do projeto, ficando para quem tiver a curiosidade da implementação
